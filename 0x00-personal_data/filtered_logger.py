@@ -84,18 +84,18 @@ class RedactingFormatter(logging.Formatter):
         return message
 
 
-
 def main():
     """Main function"""
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT name, email, phone, ssn, password, ip, \
                     last_login, user_agent FROM users;")
-    
+
     for row in cursor:
         log_user_data(row)
     cursor.close()
     db.close()
+
 
 if __name__ == "__main__":
     main()
