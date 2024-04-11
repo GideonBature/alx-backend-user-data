@@ -11,6 +11,18 @@ import mysql.connector
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
+def log_user_data(user_data):
+    """Log user data"""
+    filtered_keys = ['name', 'email', 'phone', 'ssn', 'password']
+    log_format = '[HOLBERTON] user_date INFO {last_login}: {data}'
+
+    data = '; '.join(f'{key}=***' if key in filtered_keys else f'{key}={value}'
+                     for key, value in zip(['name', 'email', 'phone', 'ssn',
+                                            'password', 'ip', 'last_login',
+                                            'user_agent'], user_data))
+    print(log_format.format(last_login=user_data[6], data=data))
+
+
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """Returns connector to db"""
 
@@ -70,3 +82,20 @@ class RedactingFormatter(logging.Formatter):
             message = re.sub(f"{field}=[^;]",
                              f"{field}={self.REDACTION}", message)
         return message
+
+
+
+def main():
+    """Main function"""
+    db = get_db()
+    cursor = db.cursor()
+    cursor.execute("SELECT name, email, phone, ssn, password, ip, \
+                    last_login, user_agent FROM users;")
+    
+    for row in cursor:
+        log_user_data(row)
+    cursor.close()
+    db.close()
+
+if __name__ == "__main__":
+    main()
