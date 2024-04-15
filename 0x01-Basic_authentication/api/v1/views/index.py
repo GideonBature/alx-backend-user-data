@@ -31,3 +31,10 @@ def not_authorized() -> str:
     """ Not authorized handler
     """
     abort(401)
+
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def not_allowed() -> str:
+    """ Not allowed handler
+    """
+    abort(403)
