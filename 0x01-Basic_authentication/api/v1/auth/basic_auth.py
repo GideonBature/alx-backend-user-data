@@ -84,4 +84,4 @@ class BasicAuth(Auth):
         if user_creds is None or any(cred is None for cred in user_creds):
             return None
         user_email, user_pwd = user_creds
-       return self.user_object_from_credentials(user_email, user_pwd)
+        return self.user_object_from_credentials(user_email, user_pwd)
