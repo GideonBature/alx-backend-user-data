@@ -15,6 +15,7 @@ class Auth:
         """
         if excluded_paths is None or excluded_paths == []:
             return True
+
         for excluded_path in excluded_paths:
             if excluded_path[-1] != '/' and excluded_path[-1] != '*':
                 excluded_path += '/'
@@ -28,6 +29,7 @@ class Auth:
 
         if path[-1] != '/':
             path += '/'
+
         if path not in excluded_paths:
             return True
 
