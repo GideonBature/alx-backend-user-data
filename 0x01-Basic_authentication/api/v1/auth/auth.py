@@ -3,7 +3,7 @@
 """
 from flask import request
 from typing import List, TypeVar
-from fnmatch
+import fnmatch
 
 
 class Auth:
