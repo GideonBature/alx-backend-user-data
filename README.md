@@ -6,4 +6,4 @@
 
 ### 0x01. [Basic authentication](https://github.com/GideonBature/alx-backend-user-data/tree/main/0x01-Basic_authentication)
 
-### 0x02. [](https://github.com/GideonBature/alx-backend-user-data/tree/main/0x02-i18n)
+### 0x02. [Session authentication](https://github.com/GideonBature/alx-backend-user-data/tree/main/0x02-Session_authentication)
