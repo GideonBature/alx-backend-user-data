@@ -9,3 +9,5 @@ from api.v1.views.index import *
 from api.v1.views.users import *
 
 User.load_from_file()
+
+from . import session_auth
