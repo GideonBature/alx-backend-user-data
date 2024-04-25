@@ -64,7 +64,8 @@ class DB:
         """
         user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
-            if key not in User.__table__.columns.keys():
+            if hasattr(user, key):
+                setattr(user, key, value)
+            else:
                 raise ValueError
-            setattr(user, key, value)
         self._session.commit()
