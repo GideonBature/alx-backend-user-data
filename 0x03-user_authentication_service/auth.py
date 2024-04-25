@@ -3,6 +3,8 @@
 """
 import bcrypt
 from db import DB
+from user import User
+import auth
 
 
 def _hash_password(password: str) -> bytes:
@@ -21,21 +23,13 @@ class Auth:
         """
         self._db = DB()
 
-    def _hash_password(self, password: str) -> bytes:
-        """Hash a password
-        """
-        salt = bcrypt.gensalt()
-        hashed_pw = bcrypt.hashpw(password.encode('utf-8'), salt)
-        return hashed_pw
-
     def register_user(self, email: str, password: str) -> User:
         """Register a new user
         """
-        u_query = self._db._session.query(User).\
-            filter_by(email=email).first()
-        if user_query:
-            raise ValueError(f"User {email} already exists")
-
-        hashed_password = self._hash_password(password)
-        new_user = self._db.add_user(email, hashed_password)
-        return new_user
+        try:
+            self._db.find_user_by(email=email)
+            raise ValueError('User {} already exists'.format(email))
+        except auth.NoResultFound:
+            hashed_pw = auth._hash_password(password)
+            user = self._db.add_user(email, hashed_pw)
+            return user
