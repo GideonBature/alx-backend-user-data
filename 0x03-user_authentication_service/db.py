@@ -52,13 +52,13 @@ class DB:
         """
         user = self.find_user_by(id=user_id)
         if not user:
-            raise ValueError("User not found.")
+            raise ValueError
 
         valid_keys = {attr.key for attr in User.__table__.columns}
         for key, value in kwargs.items():
             if key in valid_keys:
                 setattr(user, key, value)
             else:
-                raise ValueError(f"{key} is not a valid
-                                 attribute for the user.")
+                raise ValueError
+
         self._session.commit()
